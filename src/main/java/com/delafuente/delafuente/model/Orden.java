@@ -1,8 +1,11 @@
 package com.delafuente.delafuente.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -11,21 +14,32 @@ public class Orden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_orden;
+    @NotEmpty(message = "La descripción es obligatoria")
     private String descripcion;
+
+    @NotNull(message = "El costo es obligatorio")
+    @Min(value = 0, message = "El costo no puede ser negativo")
     private double costo;
-    private Date fecha;
+
+    @NotNull(message = "La fecha es obligatoria")
+    private LocalDate fecha;
+
+    @NotEmpty(message = "El estado es obligatorio")
     private String estado;
 
     @ManyToOne()
     @JoinColumn(name = "dni")
+    @NotNull(message = "El cliente es obligatorio")
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
+    @NotNull(message = "La categoría es obligatoria")
     private Categoria categoria;
 
     @ManyToOne
     @JoinColumn(name = "id_profesional")
+    @NotNull(message = "El profesional es obligatorio")
     private Profesional profesional;
 
 
@@ -53,11 +67,11 @@ public class Orden {
         this.costo = costo;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
