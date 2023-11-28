@@ -50,9 +50,7 @@ public class OrdenController {
         String desde = filtro.getDesde() != null ? filtro.getDesde().format(formatter) : "";
         String hasta = filtro.getHasta() != null ? filtro.getHasta().format(formatter) : "";
 
-        return "redirect:/ordenes?" +
-                "desde=" + desde +
-                "&hasta=" + hasta;
+        return "redirect:/ordenes?" + "desde=" + desde + "&hasta=" + hasta;
     }
 
     @GetMapping("/nueva_orden")
@@ -63,7 +61,7 @@ public class OrdenController {
         List<Cliente> clientes = clienteRepository.findAll();
         List<Profesional> profesionales = profesionalRepository.findAll();
         List<Categoria> categorias = categoriaRepository.findAll();
-        
+
         model.addAttribute("clientes", clientes);
         model.addAttribute("profesionales", profesionales);
         model.addAttribute("categorias", categorias);
@@ -72,13 +70,22 @@ public class OrdenController {
     }
 
 
+
     @PostMapping("/guardarOrden")
-    public String guardarOrden(@ModelAttribute("orden") @Valid Orden orden, BindingResult bindingResult) {
+    public String guardarOrden(@ModelAttribute("orden") @Valid Orden orden, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            List<Cliente> clientes = clienteRepository.findAll();
+            List<Profesional> profesionales = profesionalRepository.findAll();
+            List<Categoria> categorias = categoriaRepository.findAll();
+
+            model.addAttribute("clientes", clientes);
+            model.addAttribute("profesionales", profesionales);
+            model.addAttribute("categorias", categorias);
 
             return "nueva_orden";
         }
         ordenRepository.save(orden);
         return "redirect:/ordenes";
     }
+
 }
