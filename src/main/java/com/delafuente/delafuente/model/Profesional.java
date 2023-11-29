@@ -19,7 +19,6 @@ public class Profesional {
     public void setOrdenes(List<Orden> ordenes) {
         this.ordenes = ordenes;
     }
-
     @OneToMany(mappedBy = "profesional")
     private List<Orden> ordenes;
 

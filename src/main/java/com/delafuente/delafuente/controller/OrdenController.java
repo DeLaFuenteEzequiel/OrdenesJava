@@ -42,21 +42,16 @@ public class OrdenController {
         return "ordenes";
     }
 
-
-
     @PostMapping("/filtrarOrdenes")
     public String filtrarOrdenes(@ModelAttribute("filtro") Filtro filtro) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String desde = filtro.getDesde() != null ? filtro.getDesde().format(formatter) : "";
         String hasta = filtro.getHasta() != null ? filtro.getHasta().format(formatter) : "";
-
         return "redirect:/ordenes?" + "desde=" + desde + "&hasta=" + hasta;
     }
-
     @GetMapping("/nueva_orden")
     public String nuevaOrden(Model model) {
         model.addAttribute("orden", new Orden());
-
 
         List<Cliente> clientes = clienteRepository.findAll();
         List<Profesional> profesionales = profesionalRepository.findAll();
@@ -68,9 +63,6 @@ public class OrdenController {
 
         return "nueva_orden";
     }
-
-
-
     @PostMapping("/guardarOrden")
     public String guardarOrden(@ModelAttribute("orden") @Valid Orden orden, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -87,5 +79,11 @@ public class OrdenController {
         ordenRepository.save(orden);
         return "redirect:/ordenes";
     }
+
+
+
+
+
+
 
 }

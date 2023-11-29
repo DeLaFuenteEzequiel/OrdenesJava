@@ -1,6 +1,7 @@
 package com.delafuente.delafuente.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -9,8 +10,11 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dni;
+    @NotEmpty(message = "El nombre es obligatorio")
     private String nombre;
+    @NotEmpty(message = "La direccion es obligatoria")
     private String direccion;
+    @NotEmpty(message = "el mail es obligatorio")
     private String email;
 
     public List<Orden> getOrdenes() {

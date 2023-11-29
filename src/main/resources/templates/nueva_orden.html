@@ -8,7 +8,9 @@
 </head>
 <body>
 <div th:replace="topnav :: navbar"></div>
-<div class ="card">
+
+<div class="container" style="margin-bottom: 100px;">
+<div class ="card mb-5" style="margin-bottom: 70px;">
 <h1>Nueva Orden</h1>
   <form th:action="@{/guardarOrden}" th:method="post" th:object="${orden}">
     <div class="form-group">
@@ -48,10 +50,22 @@
         <option th:each="profesional : ${profesionales}" th:value="${profesional.id_profesional}" th:text="${profesional.nombreApellido}"></option>
       </select>
   </div>
+    <button type="submit" class="btn btn-secondary" style="margin-top: 10px; z-index: 1000;">Guardar Orden</button>
+  </form>
+  <tr></tr>
+  <div class="row">
+    <div class="card">
+      <form th:action="@{/nuevo_cliente}" method="get">
+        <button type="submit" class="btn btn-secondary">Cliente sin registrar</button>
+      </form>
+    </div>
+  </div>
 
-  <button type="submit" class="btn btn-primary">Guardar Orden</button>
-</form>
 </div>
+</div>
+
+
+
 <!--
 <div class = "card">.hasErrors('c
   <div th:if="${#fields.hasErrors('descripcion') or #fieldsosto') or #fields.hasErrors('fecha') or #fields.hasErrors('estado') or #fields.hasErrors('cliente') or #fields.hasErrors('categoria') or #fields.hasErrors('profesional')}" class="alert alert-danger">
@@ -68,6 +82,8 @@
   </div>
 </div>
 -->
+
+<div th:replace="botnav :: botnav"></div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </body>
